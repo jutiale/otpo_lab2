@@ -36,4 +36,6 @@ void load(text txt, char *filename)
 			*t = 0;
         append_line(txt, buf);
     }
+	
+	fclose(f);
 }
