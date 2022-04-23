@@ -3,13 +3,23 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.c \
-    myfunc.c
+SOURCES += editor.c \
+    load.c \
+    move.c \
+    funcs.c \
+    save.c \
+    show.c \
+    append_line.c \
+    create_text.c \
+    move_cursor.c \
+    process_forward.c \
+    remove_all.c
 
-HEADERS += \
-    myfunc.h
+HEADERS += text.h \
+    _text.h \
+    common.h
 
-QMAKE_CFLAGS += -Wall -Wextra -Werror
+QMAKE_CFLAGS += -Wall -Wextra
 
 # gcov
 QMAKE_CFLAGS += -fprofile-arcs -ftest-coverage
