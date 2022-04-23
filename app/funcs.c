@@ -4,26 +4,7 @@
 #include "common.h"
 #include "text.h"
 
-static void shownum_line(int index, char *contents, int cursor, void *data);
-
-void shownum(text txt)
-{
-    process_forward(txt, shownum_line, NULL);
-}
-
-void mcf(text txt)
-{
-	move_cursor_right(txt);
-}
-
-void rh(text txt)
-{
-	remove_first(txt);
-}
-
-/**
- * Выводит содержимое указанного файла на экран
- */
+// Функция 1 для вывода содержимого текста с нумерацией строк shownum
 static void shownum_line(int index, char *contents, int cursor, void *data)
 {
     /* Функция обработчик всегда получает существующую строку */
@@ -44,4 +25,21 @@ static void shownum_line(int index, char *contents, int cursor, void *data)
 		printf("%c", contents[i]);
 	}
 	printf("\n");
+}
+
+void shownum(text txt)
+{
+    process_forward(txt, shownum_line, NULL);
+}
+
+// Функция 2 для перемещения курсора на один символ вправо, если это возможно mcf
+void mcf(text txt)
+{
+	move_cursor_right(txt);
+}
+
+// Функция 3 для удаления первой строки rh
+void rh(text txt)
+{
+	remove_first(txt);
 }

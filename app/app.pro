@@ -9,11 +9,13 @@ SOURCES += editor.c \
     funcs.c \
     save.c \
     show.c \
-    append_line.c \
+    append_line.c \	
     create_text.c \
     move_cursor.c \
+    move_cursor_right.c \
     process_forward.c \
-    remove_all.c
+    remove_all.c \
+    remove_first.c
 
 HEADERS += text.h \
     _text.h \
