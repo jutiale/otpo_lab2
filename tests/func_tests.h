@@ -129,17 +129,21 @@ TEST(save, SaveFile) {
 }
 
 TEST(save, EmptyFile) {
+	std::string filename = "test.txt";	
 	testing::internal::CaptureStderr();
 	text txt = create_text();
-	save(txt, "test.txt");	
+	save(txt, (char *)filename.c_str());	
+	std::remove((char *)filename.c_str());
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
 	ASSERT_TRUE(output_length > 0);
 }
 
 TEST(save, NoFile) {
+	std::string filename = "test.txt";	
 	testing::internal::CaptureStderr();
-	save(NULL, "test.txt");	
+	save(NULL, (char *)filename.c_str());	
+	std::remove((char *)filename.c_str());
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
 	ASSERT_TRUE(output_length > 0);
