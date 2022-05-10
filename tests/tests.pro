@@ -28,6 +28,7 @@ SOURCES +=     main.cpp \
 	../app/remove_all.c \
 	../app/remove_first.c \
 	../app/move.c \
+	../app/save.c \
 	../app/show.c \
 	../app/append_line.c \
 	../app/funcs.c

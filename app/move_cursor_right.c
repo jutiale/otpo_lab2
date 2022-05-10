@@ -4,7 +4,7 @@
 void move_cursor_right(text txt)
 {
     /* Проверяем, имеется ли текст */
-    if (txt == NULL || txt->cursor->line == NULL) {
+    if (txt == NULL || txt->cursor->line == NULL || txt->length == 0) {
         fprintf(stderr, "The text doesn't exist!\n");
         return;
     }

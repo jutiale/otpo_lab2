@@ -22,6 +22,7 @@ static void saveline(int index, char *contents, int cursor, void *data)
     
     /* Выводим строку на экран */
     fputs(contents, data);
+    fputs("\n", data);
 }
 /**
  * Загружает содержимое указанного файла
@@ -33,7 +34,7 @@ void save(text txt, char *filename)
 
     /* Открываем файл для чтения, контролируя ошибки */
     if ((f = fopen(filename, "a")) == NULL) {
-        printf("The file %s cannot be opened\n", filename);
+        fprintf(stderr, "The file %s cannot be opened\n", filename);
         return;
     }
 

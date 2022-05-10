@@ -7,6 +7,9 @@
 #include <errno.h>
 #include <unistd.h>
 #include <math.h>
+#include <iostream>
+#include <fstream>
+#include <cstdio>
 
 extern "C" {
 #include "common.h"
@@ -64,6 +67,15 @@ TEST(mcf, NoFile) {
 	ASSERT_TRUE(output_length > 0);
 }
 
+TEST(mcf, EmptyFile) {
+	testing::internal::CaptureStderr();
+	text txt = create_text();
+	mcf(txt);	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_TRUE(output_length > 0);
+}
+
 TEST(rh, RemoveFirstLine) {
 	text txt = create_text();
 	append_line(txt, "12345");
@@ -94,4 +106,104 @@ TEST(rh, NoFile) {
 	ASSERT_TRUE(output_length > 0);
 }
 
+TEST(save, SaveFile) {
+	std::string filename = "test.txt";	
+	text txt = create_text();
+	append_line(txt, "12345");
+	append_line(txt, "67890");	
+	testing::internal::CaptureStderr();
+	save(txt, (char *)filename.c_str());	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_EQ(output_length, 0);	
+	std::ifstream f(filename);
+	std::stringstream buffer;
+	bool good = f.good();
+	ASSERT_TRUE(good);
+	buffer << f.rdbuf();
+	f.close();
+	std::string result = buffer.str();
+	std::string test_string = "12345\n67890\n";	
+	std::remove((char *)filename.c_str());
+	ASSERT_EQ(result, test_string);
+}
+
+TEST(save, EmptyFile) {
+	testing::internal::CaptureStderr();
+	text txt = create_text();
+	save(txt, "test.txt");	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_TRUE(output_length > 0);
+}
+
+TEST(save, NoFile) {
+	testing::internal::CaptureStderr();
+	save(NULL, "test.txt");	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_TRUE(output_length > 0);
+}
+
+TEST(save, FileOpenError) {
+	testing::internal::CaptureStderr();
+	text txt = create_text();
+	save(txt, "/qwerty");	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_TRUE(output_length > 0);
+}
+
+TEST(m, Move) {
+	text txt = create_text();
+	append_line(txt, "12");
+	append_line(txt, "34");
+	append_line(txt, "56");
+	append_line(txt, "78");
+	std::string test_string = "12\n34\n5|6\n78\n";
+	testing::internal::CaptureStdout();
+	move_cursor(txt, 2, 1);
+	show(txt);	
+	std::string output = testing::internal::GetCapturedStdout();
+	ASSERT_EQ(output, test_string);
+}
+
+TEST(m, EmptyFile) {
+	testing::internal::CaptureStderr();
+	text txt = create_text();
+	move_cursor(txt, 0, 0);	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_TRUE(output_length > 0);
+}
+
+TEST(m, NoFile) {
+	testing::internal::CaptureStderr();
+	move_cursor(NULL, 0, 0);	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_TRUE(output_length > 0);
+}
+
+TEST(m, InvalidLine) {
+	testing::internal::CaptureStderr();
+	text txt = create_text();
+	append_line(txt, "1");
+	append_line(txt, "2");
+	move_cursor(txt, 999, 0);	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_TRUE(output_length > 0);
+}
+
+TEST(m, InvalidPos) {
+	testing::internal::CaptureStderr();
+	text txt = create_text();
+	append_line(txt, "1");
+	append_line(txt, "2");
+	move_cursor(txt, 0, 999);	
+	std::string output = testing::internal::GetCapturedStderr();
+	size_t output_length = output.length();
+	ASSERT_TRUE(output_length > 0);
+}
 #endif // ROOTS_TEST_H

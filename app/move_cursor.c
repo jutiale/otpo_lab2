@@ -4,10 +4,10 @@
 void move_cursor(text txt, size_t line, size_t pos)
 {	
     /* Проверяем, имеется ли текст */
-    if (txt == NULL) {
-        fprintf(stderr, "The text doesn't exist!\n");
+    if (txt == NULL || txt->length == 0) {
+        fprintf(stderr, "There are already no any lines in the text!\n");
         return;
-    }    
+    } 
     
     /* Если список изначально пуст, делать ничего не надо */
     if (line >= txt->length) {
