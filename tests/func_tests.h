@@ -33,7 +33,8 @@ TEST(shownum, NoFile) {
 	shownum(NULL);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(mcf, MoveRight) {
@@ -56,7 +57,8 @@ TEST(mcf, LineEnd) {
 	mcf(txt);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(mcf, NoFile) {
@@ -64,7 +66,8 @@ TEST(mcf, NoFile) {
 	mcf(NULL);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(mcf, EmptyFile) {
@@ -73,7 +76,8 @@ TEST(mcf, EmptyFile) {
 	mcf(txt);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(rh, RemoveFirstLine) {
@@ -95,7 +99,8 @@ TEST(rh, EmptyFile) {
 	rh(txt);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(rh, NoFile) {
@@ -103,7 +108,8 @@ TEST(rh, NoFile) {
 	rh(NULL);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(save, SaveFile) {
@@ -136,7 +142,8 @@ TEST(save, EmptyFile) {
 	std::remove((char *)filename.c_str());
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(save, NoFile) {
@@ -146,7 +153,8 @@ TEST(save, NoFile) {
 	std::remove((char *)filename.c_str());
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(save, FileOpenError) {
@@ -155,7 +163,8 @@ TEST(save, FileOpenError) {
 	save(txt, "/qwerty");	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(m, Move) {
@@ -178,7 +187,8 @@ TEST(m, EmptyFile) {
 	move_cursor(txt, 0, 0);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(m, NoFile) {
@@ -186,7 +196,8 @@ TEST(m, NoFile) {
 	move_cursor(NULL, 0, 0);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(m, InvalidLine) {
@@ -197,7 +208,8 @@ TEST(m, InvalidLine) {
 	move_cursor(txt, 999, 0);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 
 TEST(m, InvalidPos) {
@@ -208,6 +220,7 @@ TEST(m, InvalidPos) {
 	move_cursor(txt, 0, 999);	
 	std::string output = testing::internal::GetCapturedStderr();
 	size_t output_length = output.length();
-	ASSERT_TRUE(output_length > 0);
+	bool gotAnyErrors = output_length > 0;
+	ASSERT_TRUE(gotAnyErrors);
 }
 #endif // ROOTS_TEST_H
